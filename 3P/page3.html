@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>りうけっと パンフレット - 会場平面図・参加サークル一覧</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Yusei+Magic&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ===== Reset & Base ===== */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    html,
+    body {
+      width: 210mm;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      color: #4a4a68;
+      background: #f0f0f0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      position: relative;
+      width: 210mm;
+      height: 297mm;
+      overflow: hidden;
+      background-color: white;
+      page-break-after: always;
+      margin-bottom: 5mm;
+    }
+
+    .page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('../4P/haikei.png') center/cover no-repeat;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 8mm 12mm 10mm 12mm;
+    }
+
+    /* ===== Header Area ===== */
+    .header {
+      text-align: center;
+      position: relative;
+      margin-bottom: 2mm;
+      padding-top: 2mm;
+    }
+
+    .header h1 {
+      font-size: 38pt;
+      font-weight: 800;
+      color: #3b5082;
+      letter-spacing: 0.1em;
+      display: inline-block;
+      text-shadow:
+        4px 4px 0 #fff, -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff,
+        0px 4px 0 #fff, 0px -4px 0 #fff, 4px 0px 0 #fff, -4px 0px 0 #fff,
+        0 4px 10px rgba(100, 120, 180, 0.25);
+      margin-bottom: 1.5mm;
+      position: relative;
+      z-index: 2;
+    }
+
+    .subtitle-badge {
+      display: inline-block;
+      background: #2a588f;
+      color: #fff;
+      font-size: 10pt;
+      font-weight: bold;
+      padding: 1.5mm 6mm;
+      border-radius: 20px;
+      position: relative;
+      z-index: 2;
+      letter-spacing: 0.05em;
+    }
+
+    .subtitle-badge::before,
+    .subtitle-badge::after {
+      content: '✦';
+      margin: 0 4px;
+      color: #fff;
+      font-size: 9pt;
+    }
+
+    /* Decorations */
+    .bubble-pink,
+    .bubble-blue,
+    .bubble-yellow {
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      z-index: 1;
+    }
+
+    .bubble-pink {
+      width: 25px;
+      height: 25px;
+      background: #ff8ab3;
+      top: 3mm;
+      left: 15mm;
+    }
+
+    .bubble-blue {
+      width: 15px;
+      height: 15px;
+      background: #75cde6;
+      top: 10mm;
+      right: 35mm;
+    }
+
+    .bubble-yellow {
+      width: 18px;
+      height: 18px;
+      background: #ffdf73;
+      bottom: 2mm;
+      right: 10mm;
+      border: 2px solid #fff;
+    }
+
+    .title-stars::before {
+      content: '✦';
+      position: absolute;
+      top: 0mm;
+      left: 25mm;
+      font-size: 24pt;
+      color: #ffb1c8;
+      text-shadow: 0 0 6px #fff;
+      z-index: 1;
+    }
+
+    .title-stars::after {
+      content: '✦';
+      position: absolute;
+      top: 5mm;
+      right: 25mm;
+      font-size: 18pt;
+      color: #9edff0;
+      text-shadow: 0 0 6px #fff;
+      z-index: 1;
+    }
+
+    /* ===== Map Area ===== */
+    .map-container {
+      width: 100%;
+      background: #fff;
+      border-radius: 16px;
+      padding: 4mm;
+      box-shadow: 0 4px 12px rgba(160, 180, 220, 0.2);
+      border: 2px solid rgba(220, 230, 245, 0.9);
+      margin-bottom: 2mm;
+      z-index: 2;
+      position: relative;
+    }
+
+    .map-container img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      height: 110mm;
+      /* Map height adjustment to fit page perfectly */
+      object-fit: contain;
+    }
+
+    /* ===== Legend Area ===== */
+    .legend-wrapper {
+      margin-bottom: 5mm;
+      z-index: 2;
+      position: relative;
+    }
+
+    .legend-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3.5mm;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: 2.5mm 4mm;
+      box-shadow: 0 3px 10px rgba(140, 150, 190, 0.15);
+      border: 1.5px solid rgba(220, 230, 245, 0.9);
+      margin-bottom: 1.5mm;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5mm;
+    }
+
+    .legend-text {
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #3b4363;
+      line-height: 1.1;
+    }
+
+    .legend-note {
+      font-size: 6.5pt;
+      font-weight: 800;
+      color: #3b4363;
+      text-align: right;
+      padding-right: 2mm;
+    }
+
+    /* Legend CSS Icons */
+    .icon-circle-site {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid #5aa9e6;
+      background: #fff;
+    }
+
+    .icon-desk-grey {
+      width: 8px;
+      height: 18px;
+      background: #a9a9a9;
+    }
+
+    .icon-desk-blue {
+      width: 18px;
+      height: 8px;
+      background: #0075c2;
+    }
+
+    .icon-no-entry {
+      width: 16px;
+      height: 16px;
+      background: #e60012;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .icon-no-entry::before {
+      content: '';
+      width: 10px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .icon-table-yellow {
+      width: 14px;
+      height: 14px;
+      background: #e9a528;
+      border-radius: 50%;
+    }
+
+    /* ===== Circle List Area ===== */
+    .circle-list-area {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      border: 2px solid #bce1f1;
+      padding: 0mm 5mm 4mm 5mm;
+      box-shadow: 0 4px 15px rgba(160, 180, 220, 0.25);
+      z-index: 2;
+      position: relative;
+      margin-top: auto;
+      /* Push to bottom naturally */
+    }
+
+    .circle-list-header {
+      background: #fc82a9;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3mm;
+      padding: 1.5mm 15mm;
+      border-radius: 25px;
+      position: absolute;
+      top: -4.5mm;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      box-shadow: 0 3px 8px rgba(252, 130, 169, 0.3);
+    }
+
+    .circle-list-header h2 {
+      font-size: 15pt;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+
+    /* CSS Box X Icon */
+    .box-x {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid #fff;
+      position: relative;
+    }
+
+    .box-x::before,
+    .box-x::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 5px;
+      /* Adjusting to make X shape */
+      width: 1.5px;
+      height: 14px;
+      background: #fff;
+    }
+
+    .box-x::before {
+      transform: rotate(45deg);
+    }
+
+    .box-x::after {
+      transform: rotate(-45deg);
+    }
+
+    .circle-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 4mm 3mm;
+      margin-top: 14mm;
+      /* Space for the header badge */
+    }
+
+    .circle-card {
+      width: calc((100% - 12mm) / 5);
+      /* 5 items per row, 3mm gap * 4 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .circle-badge {
+      background: #ff8ab3;
+      color: #fff;
+      font-size: 9.5pt;
+      font-weight: 800;
+      padding: 1mm 6mm;
+      border-radius: 12px;
+      position: absolute;
+      top: -3.5mm;
+      z-index: 2;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .circle-img-wrapper {
+      width: 100%;
+      border-radius: 14px;
+      border: 2.5px solid #ffc4d9;
+      padding: 1.5px;
+      background: #fff;
+      margin-bottom: 1.5mm;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle-img-wrapper img {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .circle-name {
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #3b4363;
+      text-align: center;
+      line-height: 1.2;
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="content">
+
+      <!-- ===== Header Area ===== -->
+      <div class="header">
+        <div class="bubble-pink"></div>
+        <div class="bubble-blue"></div>
+        <div class="bubble-yellow"></div>
+        <div class="title-stars"></div>
+        <h1>会場平面図</h1><br>
+        <div class="subtitle-badge">所沢市民文化センター ミューズ2F　ザ・スクエア</div>
+      </div>
+
+      <!-- ===== Map Area ===== -->
+      <div class="map-container">
+        <img src="riucket map kaizyou.png2.png" alt="会場平面図マップ">
+      </div>
+
+      <!-- ===== Legend Area ===== -->
+      <div class="legend-wrapper">
+        <div class="legend-container">
+          <div class="legend-item">
+            <div class="icon-circle-site"></div>
+            <div class="legend-text">サークルサイト</div>
+          </div>
+          <div class="legend-item">
+            <div class="icon-desk-grey"></div>
+            <div class="legend-text">サークル長机</div>
+          </div>
+          <div class="legend-item">
+            <div class="icon-desk-blue"></div>
+            <div class="legend-text">本部事務机</div>
+          </div>
+          <div class="legend-item">
+            <div class="icon-no-entry"></div>
+            <div class="legend-text">通行止め</div>
+          </div>
+          <div class="legend-item">
+            <div class="icon-table-yellow"></div>
+            <div class="legend-text">丸テーブル</div>
+          </div>
+        </div>
+        <div class="legend-note">※自サイト内∩規約範囲内であれば
+          ご自由にレイアウトいただけます</div>
+      </div>
+
+      <!-- ===== Circle List Area ===== -->
+      <div class="circle-list-area">
+        <div class="circle-list-header">
+          <div class="box-x"></div>
+          <h2>参加サークル一覧</h2>
+          <div class="box-x"></div>
+        </div>
+
+        <div class="circle-grid">
+          <!-- 上段5つ -->
+          <div class="circle-card">
+            <div class="circle-badge">A1</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A1タツキ.jpg" alt="A1"></div>
+            <div class="circle-name">タツキ</div>
+          </div>
+          <div class="circle-card">
+            <div class="circle-badge">A2</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A2かまぼろ.png2.png" alt="A2"></div>
+            <div class="circle-name">かまぼろ</div>
+          </div>
+          <div class="circle-card">
+            <div class="circle-badge">A3</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A3　UNKNOWN.png" alt="A3"></div>
+            <div class="circle-name">UNKNOWN</div>
+          </div>
+          <div class="circle-card">
+            <div class="circle-badge">A4</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A4ニック・ナ・ゼン.png" alt="A4"></div>
+            <div class="circle-name">ニック・ナ・ゼン</div>
+          </div>
+          <div class="circle-card">
+            <div class="circle-badge">A5</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A5一番槍のスピア.png" alt="A5"></div>
+            <div class="circle-name">一番槍のスピア</div>
+          </div>
+
+          <!-- 下段5つ -->
+          <div class="circle-card">
+            <div class="circle-badge">A6</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A6☆星櫻マカロン★.png" alt="A6"></div>
+            <div class="circle-name">☆星櫻マカロン★</div>
+          </div>
+          <div class="circle-card">
+            <div class="circle-badge">A7</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A7空都凪はと.jpg" alt="A7"></div>
+            <div class="circle-name">空都凪はと</div>
+          </div>
+          <div class="circle-card">
+            <div class="circle-badge">A8</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A8星羅葵.jpeg" alt="A8"></div>
+            <div class="circle-name">星羅葵</div>
+          </div>
+          <div class="circle-card">
+            <div class="circle-badge">A9</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/A9タルト.png" alt="A9"></div>
+            <div class="circle-name">タルト</div>
+          </div>
+          <div class="circle-card">
+            <div class="circle-badge">企1</div>
+            <div class="circle-img-wrapper"><img src="りうけっと参加サークル一覧sa-kuru/企1　雪音りう.png" alt="企1"></div>
+            <div class="circle-name">雪音りう</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>

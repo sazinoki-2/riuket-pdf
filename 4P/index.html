@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>りうけっと パンフレット - ご案内・注意事項</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Yusei+Magic&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4 portrait; margin: 0; }
+
+    html, body {
+      width: 210mm;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      color: #4a4a68;
+      background: #f0f0f0; /* ブラウザ確認用にグレー背景 */
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      position: relative;
+      width: 210mm;
+      height: 297mm;
+      overflow: hidden;
+      background-color: white; /* 印刷時の背景色 */
+      page-break-after: always; /* 印刷時にここで改ページする */
+      margin-bottom: 5mm; /* ブラウザで見た時のページ間の隙間 */
+    }
+
+    .page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('haikei.png') center/cover no-repeat;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 8mm 15mm 10mm 15mm;
+    }
+
+    /* ===== Title ===== */
+    .title-area {
+      text-align: center;
+      margin-bottom: 2mm;
+      position: relative;
+      padding: 3mm 0;
+    }
+
+    .title-area h1 {
+      font-size: 42pt;
+      font-weight: 800;
+      color: #3b5082;
+      letter-spacing: 0.1em;
+      display: inline-block;
+      position: relative;
+      /* Thick white stroke effect */
+      text-shadow: 
+        4px 4px 0 #fff, -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff,
+        0px 4px 0 #fff, 0px -4px 0 #fff, 4px 0px 0 #fff, -4px 0px 0 #fff,
+        0 6px 12px rgba(100, 120, 180, 0.2);
+      z-index: 2;
+    }
+
+    /* Decorative Bubbles around title */
+    .bubble-pink, .bubble-blue, .bubble-yellow {
+      position: absolute;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      z-index: 1;
+    }
+    .bubble-pink {
+      width: 30px; height: 30px;
+      background: #ff8ab3;
+      top: 5mm; left: 20mm;
+    }
+    .bubble-blue {
+      width: 20px; height: 20px;
+      background: #75cde6;
+      top: 10mm; right: 25mm;
+    }
+    .bubble-yellow {
+      width: 24px; height: 24px;
+      background: #ffdf73;
+      bottom: 2mm; right: 10mm;
+      border: 3px solid #fff;
+    }
+
+    /* Little stars/diamonds */
+    .title-area::before {
+      content: '✦';
+      position: absolute;
+      top: 3mm; left: 5mm;
+      font-size: 30pt; color: #ffb1c8;
+      text-shadow: 0 0 6px #fff;
+    }
+    .title-area::after {
+      content: '✦';
+      position: absolute;
+      top: -2mm; right: 15mm;
+      font-size: 24pt; color: #9edff0;
+      text-shadow: 0 0 6px #fff;
+    }
+
+    /* ===== Notice Cards ===== */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 3mm;
+      margin-bottom: 4mm;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 4.5mm 6mm;
+      display: flex;
+      align-items: center;
+      gap: 6mm;
+      box-shadow: 0 3px 12px rgba(140, 150, 190, 0.15);
+      border: 1.5px solid rgba(220, 230, 245, 0.9);
+    }
+
+    .card-icon {
+      flex-shrink: 0;
+      width: 68px;
+      height: 68px;
+    }
+
+    .card-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .card-body { flex: 1; }
+
+    .card-body .card-title {
+      font-size: 15pt;
+      font-weight: 800;
+      line-height: 1.5;
+      color: #3b4363;
+      margin-bottom: 1.5mm;
+    }
+
+    .card-body .card-desc {
+      font-size: 10.5pt;
+      color: #5d617a;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .accent-pink { color: #f46c8a; font-size: 17pt; }
+    .accent-blue { color: #40aebb; font-size: 17pt; }
+
+    /* ===== Disclaimer ===== */
+    .disclaimer {
+      padding: 0 2mm;
+      margin-bottom: 5mm;
+    }
+
+    .disclaimer-header {
+      display: flex;
+      align-items: center;
+      gap: 4mm;
+      margin-bottom: 3mm;
+    }
+
+    .disclaimer-title {
+      font-size: 16pt;
+      color: #4b66a0;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    .disclaimer-line {
+      flex: 1;
+      height: 2px;
+      border-bottom: 2.5px dashed #7592c9;
+      opacity: 0.6;
+    }
+
+    .disclaimer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+    }
+
+    .disclaimer-list li {
+      font-size: 9.5pt;
+      line-height: 1.55;
+      color: #4a4a68;
+      padding-left: 18px;
+      position: relative;
+      font-weight: 700;
+    }
+
+    .disclaimer-list li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      top: -0.5mm;
+      color: #8da4d8;
+      font-size: 10pt;
+    }
+
+    /* ===== Footer Card ===== */
+    .footer-wrapper {
+      margin-top: auto;
+      position: relative;
+      padding-left: 18mm; 
+      margin-bottom: 4mm;
+      width: 100%;
+    }
+
+    .footer-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 6mm 6mm;
+      box-shadow: 0 5px 20px rgba(160, 180, 220, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* Protruding character icon */
+    .footer-character {
+      position: absolute;
+      left: -22mm;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 6px solid #fff;
+      box-shadow: 0 4px 15px rgba(120, 160, 210, 0.35);
+      z-index: 10;
+      background: #fff;
+    }
+
+    .footer-character img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Content inside footer next to character */
+    .footer-content {
+      margin-left: 28mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 4mm;
+    }
+
+    .footer-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3mm;
+    }
+
+    .footer-logo {
+      height: 64px;
+    }
+
+    .footer-logo img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .footer-check {
+      background: #6bb9d4;
+      color: #fff;
+      font-size: 11pt;
+      font-weight: 800;
+      padding: 2.5mm 6mm;
+      border-radius: 20px;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    /* QR Codes */
+    .footer-qr-area {
+      display: flex;
+      gap: 4mm;
+    }
+
+    .qr-box {
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 2px solid;
+    }
+
+    .qr-blue { border-color: #a7ddec; }
+    .qr-pink { border-color: #ffc4d9; }
+
+    .qr-header {
+      text-align: center;
+      font-size: 9pt;
+      font-weight: 800;
+      padding: 2.5mm 2mm;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .qr-blue .qr-header { background: #eef8fb; color: #4f91b4; }
+    .qr-pink .qr-header { background: #fff2f6; color: #db6c8c; }
+
+    .qr-img {
+      padding: 2.5mm;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+    }
+
+    .qr-img img {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+    }
+
+
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="content">
+
+      <!-- Title Area with Decorations -->
+      <div class="title-area">
+        <div class="bubble-pink"></div>
+        <div class="bubble-blue"></div>
+        <div class="bubble-yellow"></div>
+        <h1>ご案内・注意事項</h1>
+      </div>
+
+      <!-- Notice Cards -->
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon"><img src="pic1.png" alt="禁止マーク"></div>
+          <div class="card-body">
+            <div class="card-title">迷惑行為は<span class="accent-pink">ご遠慮ください</span></div>
+            <div class="card-desc">他の参加者・サークル・スタッフへの嫌がらせ、強引な勧誘、<br>大声、つきまとい等はお控えいただき、マナーをもって楽しみましょう。</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><img src="pic2.png" alt="カメラ"></div>
+          <div class="card-body">
+            <div class="card-title">撮影は周囲の方・各サークルの<br><span class="accent-blue">許可を確認</span>のうえ行ってください</div>
+            <div class="card-desc">無断撮影・SNS等への投稿はご遠慮ください。</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><img src="pic3.png" alt="ハート"></div>
+          <div class="card-body">
+            <div class="card-title">困ったこと、落とし物、体調不良などは<br><span class="accent-pink">本部まで</span></div>
+            <div class="card-desc">スタッフが対応いたします。お気軽にお声がけください。</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><img src="pic4.png" alt="ゴミ箱"></div>
+          <div class="card-body">
+            <div class="card-title">ゴミは各自で<span class="accent-blue">お持ち帰りください</span></div>
+            <div class="card-desc">会場の美化にご協力をお願いいたします。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disclaimer (No background box, dashed line title) -->
+      <div class="disclaimer">
+        <div class="disclaimer-header">
+          <span class="disclaimer-title">免責・お願い</span>
+          <div class="disclaimer-line"></div>
+        </div>
+        <ul class="disclaimer-list">
+          <li>各サークルの頒布物・展示内容・価格・在庫は各サークルの責任により運営されています。内容に関するご質問は各サークルへお願いいたします。</li>
+          <li>会場内での事故・盗難・紛失・参加者間のトラブルについて、主催者は可能な範囲で対応しますが、すべての損害を補償するものではありません。貴重品や持ち物は各自で管理をお願いいたします。</li>
+          <li>当日の配置・企画内容は、運営上の都合により変更となる場合があります。</li>
+          <li>迷惑行為や危険行為を発見した場合、退出いただく場合があります。</li>
+        </ul>
+      </div>
+
+      <!-- Footer Card (Dynamic layout) -->
+      <div class="footer-wrapper">
+        <div class="footer-card">
+          
+          <div class="footer-character">
+            <img src="aikonm2.png" alt="雪音りう">
+          </div>
+
+          <div class="footer-content">
+            <div class="footer-center">
+              <div class="footer-logo">
+                <img src="rogo-yukinevibe.png" alt="雪音りう ロゴ">
+              </div>
+              <div class="footer-check">最新情報をCheck&gt;&gt;</div>
+            </div>
+
+            <div class="footer-qr-area">
+              <div class="qr-box qr-blue">
+                <div class="qr-header">雪音りう<br>公式サイト</div>
+                <div class="qr-img"><img src="yukinekousiki%20QR.png" alt="公式サイトQR"></div>
+              </div>
+              <div class="qr-box qr-pink">
+                <div class="qr-header">公式X<br>&nbsp;</div> <!-- Empty space to match height -->
+                <div class="qr-img"><img src="yukineXQR.png" alt="公式X QR"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

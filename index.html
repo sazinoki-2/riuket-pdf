@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>りうけっと パンフレット PDFビューアー</title>
+  <style>
+    /* 画面で見たときはPDFビューアーのようにグレー背景で縦に並べます */
+    body {
+      margin: 0;
+      background: #555;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      gap: 20px;
+    }
+
+    /* 各ページ（A4サイズ）のスタイル */
+    .pdf-page {
+      width: 210mm;
+      height: 297mm;
+      border: none;
+      background: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    /* 印刷（Ctrl+P -> PDF保存）時のスタイル：余計なものを消してA4ぴったりに印刷させます */
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+        gap: 0;
+        display: block;
+      }
+      .pdf-page {
+        box-shadow: none;
+        margin: 0;
+        page-break-after: always;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1P: 表紙 -->
+  <iframe class="pdf-page" src="1P/page1.html" scrolling="no"></iframe>
+  
+  <!-- 3P: サークル配置図 -->
+  <iframe class="pdf-page" src="3P/page3.html" scrolling="no"></iframe>
+  
+  <!-- 4P: インフォメーション -->
+  <iframe class="pdf-page" src="4P/index.html" scrolling="no"></iframe>
+
+</body>
+</html>
