@@ -312,6 +312,15 @@
       flex-direction: column;
       background: #fff;
       border: 2px solid;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .qr-link {
+      text-decoration: none;
+      display: block;
+    }
+    .qr-link:hover .qr-box {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
     .qr-blue { border-color: #a7ddec; }
@@ -424,14 +433,18 @@
             </div>
 
             <div class="footer-qr-area">
-              <div class="qr-box qr-blue">
-                <div class="qr-header">雪音りう<br>公式サイト</div>
-                <div class="qr-img"><img src="yukinekousiki%20QR.png" alt="公式サイトQR"></div>
-              </div>
-              <div class="qr-box qr-pink">
-                <div class="qr-header">公式X<br>&nbsp;</div> <!-- Empty space to match height -->
-                <div class="qr-img"><img src="yukineXQR.png" alt="公式X QR"></div>
-              </div>
+              <a href="https://yukineriu.online/" target="_blank" rel="noopener noreferrer" class="qr-link">
+                <div class="qr-box qr-blue">
+                  <div class="qr-header">雪音りう<br>公式サイト</div>
+                  <div class="qr-img"><img src="yukinekousiki%20QR.png" alt="公式サイトQR"></div>
+                </div>
+              </a>
+              <a href="https://x.com/yukineriu" target="_blank" rel="noopener noreferrer" class="qr-link">
+                <div class="qr-box qr-pink">
+                  <div class="qr-header">公式X<br>&nbsp;</div> <!-- Empty space to match height -->
+                  <div class="qr-img"><img src="yukineXQR.png" alt="公式X QR"></div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
